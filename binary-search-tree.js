@@ -234,7 +234,56 @@ class BinarySearchTree {
    * remove(val): Removes a node in the BST with the value val.
    * Returns the removed node. */
 
-  remove(val) {}
+  remove(val) {
+    // if tree is empty, return undefined
+    if (this.root === null) return undefined;
+
+    // helper function to remove the node
+    function removeNode(node, val) {
+      // if the current node is null, return null
+      if (node === null) return null;
+      // if the value is less than the current node's value, recursively call the function on the left subtree.
+      if (val < node.val) {
+        // set the left child to the result of the recursive call
+        node.left = removeNode(node.left, val);
+        return node;
+      } else if (val > node.val) {
+        node.right = removeNode(node.right, val);
+        return node;
+      } else {
+        // node with no children
+        if (node.left === null && node.right === null) {
+          return null;
+        }
+        // node with only one child
+        if (node.left === null) {
+          return node.right;
+        }
+        if (node.right === null) {
+          return node.left;
+        }
+        // node with two children
+        // find the minimum value in the right subtree
+        // set the current node's value to the minimum value
+        // recursively call the function on the right subtree to remove the duplicate node
+        let tempNode = findMin(node.right);
+        node.val = tempNode.val;
+        node.right = removeNode(node.right, tempNode.val);
+        return node;
+      }
+    }
+    // helper function to find the min value in the right subtree
+    function findMin(node) {
+      while (node.left !== null) {
+        node = node.left;
+      }
+      return node;
+    }
+    // call the helper function on the root node
+    this.root = removeNode(this.root, val);
+    // return the tree
+    return this;
+  }
 
   /** Further Study!
    * isBalanced(): Returns true if the BST is balanced, false otherwise. */
@@ -246,6 +295,14 @@ class BinarySearchTree {
    * Otherwise return undefined. */
 
   findSecondHighest() {}
+
+  /** Further Study!
+   * dfsInOrderIteratively(); Write another version of the dfsInOrder function but do not use recursion.
+   * This can be challenging.
+   * Think about what the computer is doing for you when you make a recursive call.
+   */
+
+  dfsInOrderIteratively() {}
 }
 
 module.exports = BinarySearchTree;
