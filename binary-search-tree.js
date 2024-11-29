@@ -359,7 +359,31 @@ class BinarySearchTree {
    * Think about what the computer is doing for you when you make a recursive call.
    */
 
-  dfsInOrderIteratively() {}
+  dfsInOrderIteratively() {
+    // create an array to store the visited nodes and a stack to keep track of the nodes to visit
+    let visited = [];
+    let stack = [];
+
+    // set the current node to the root
+    let current = this.root;
+
+    // while there are nodes in the stack or the current node is not null
+    while (stack.length || current) {
+      // if the current node is not null, add it to the stack and move the left child to the current node
+      if (current) {
+        stack.push(current);
+        current = current.left;
+      }
+      // if the current node is null, pop the last node from the stack, add it to the visited array, and move the right child to the current node
+      else {
+        current = stack.pop();
+        visited.push(current.val);
+        current = current.right;
+      }
+    }
+    // return the visited array
+    return visited;
+  }
 }
 
 module.exports = BinarySearchTree;
