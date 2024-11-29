@@ -314,7 +314,44 @@ class BinarySearchTree {
    * findSecondHighest(): Find the second highest value in the BST, if it exists.
    * Otherwise return undefined. */
 
-  findSecondHighest() {}
+  findSecondHighest() {
+    // if the tree is empty, or has only one node, return undefined
+    if (
+      this.root === null ||
+      (this.root.left === null && this.root.right === null)
+    ) {
+      return undefined;
+    }
+
+    // helper function to find the second highest value
+    function findSecondHighestNode(node) {
+      // if the current node has a right child but the right child has no children, return the current node
+      if (
+        node.right !== null &&
+        node.right.left === null &&
+        node.right.right === null
+      ) {
+        return node;
+      }
+      // if the current node has no right child, the second highest is the highest in the left subtree
+      if (node.right === null) {
+        return findMax(node.left);
+      }
+      // recursively call the function on the right subtree
+      return findSecondHighestNode(node.right);
+    }
+
+    // helper function to find the maximum value node in a subtree
+    function findMax(node) {
+      while (node.right !== null) {
+        node = node.right;
+      }
+      return node;
+    }
+
+    // call the helper function on the root node
+    return findSecondHighestNode(this.root).val;
+  }
 
   /** Further Study!
    * dfsInOrderIteratively(); Write another version of the dfsInOrder function but do not use recursion.
