@@ -288,7 +288,27 @@ class BinarySearchTree {
   /** Further Study!
    * isBalanced(): Returns true if the BST is balanced, false otherwise. */
 
-  isBalanced() {}
+  isBalanced() {
+    // helper function to check if the tree is balanced
+    function checkHeight(node) {
+      // if the current node is null, return 0
+      if (node === null) return 0;
+      // recursively call the function on the left subtree
+      let leftHeight = checkHeight(node.left);
+      // if the left subtree is not balanced, return -1
+      if (leftHeight === -1) return -1;
+      // recursively call the function on the right subtree
+      let rightHeight = checkHeight(node.right);
+      // if the right subtree is not balanced, return -1
+      if (rightHeight === -1) return -1;
+      // if the difference between the left and right subtree heights is greater than 1, return -1
+      if (Math.abs(leftHeight - rightHeight) > 1) return -1;
+      // return the height of the current node
+      return Math.max(leftHeight, rightHeight) + 1;
+    }
+    // call the helper function on the root node
+    return checkHeight(this.root) !== -1;
+  }
 
   /** Further Study!
    * findSecondHighest(): Find the second highest value in the BST, if it exists.
