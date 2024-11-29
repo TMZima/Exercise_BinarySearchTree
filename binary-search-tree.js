@@ -147,7 +147,7 @@ class BinarySearchTree {
     function traverse(node) {
       // if the current node is null, return
       if (node === null) return;
-      // push the current node's value to the result array
+      // push the current node's value to the visited array
       visited.push(node.val);
       // recursively call the function on the left subtree
       traverse(node.left);
@@ -156,14 +156,32 @@ class BinarySearchTree {
     }
     // call the helper function on the root node
     traverse(this.root);
-    // return the result array
+    // return the visited array
     return visited;
   }
 
   /** dfsInOrder(): Traverse the array using in-order DFS.
    * Return an array of visited nodes. */
 
-  dfsInOrder() {}
+  dfsInOrder() {
+    // create an array to store the visited nodes
+    let visited = [];
+    // helper function to traverse the tree recursively
+    function traverse(node) {
+      // if the current node is null, return
+      if (node === null) return;
+      // recursively call the function on the left subtree
+      traverse(node.left);
+      // push the current node's value to the visited array
+      visited.push(node.val);
+      // recursively call the function on the right subtree
+      traverse(node.right);
+    }
+    // call the helper function on the root node
+    traverse(this.root);
+    // return the visited array
+    return visited;
+  }
 
   /** dfsPostOrder(): Traverse the array using post-order DFS.
    * Return an array of visited nodes. */
