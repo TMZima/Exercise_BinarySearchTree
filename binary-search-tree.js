@@ -90,7 +90,28 @@ class BinarySearchTree {
   /** find(val): search the tree for a node with value val.
    * return the node, if found; else undefined. Uses iteration. */
 
-  find(val) {}
+  find(val) {
+    // if no root, return undefined
+    if (this.root === null) return undefined;
+    // set current node to root
+    let current = this.root;
+    // while there is a current node
+    while (current) {
+      // if the value is equal to the current node's value, return the current node
+      if (val === current.val) return current;
+      // if the value is less than the current node's value, go left, if there is no left, return undefined. Otherwise, continue traversing the left subtree.
+      if (val < current.val) {
+        if (current.left === null) return undefined;
+        current = current.left;
+      } else {
+        // if the value is greater than the current node's value, go right, if there is no right, return undefined. Otherwise, continue traversing the right subtree.
+        if (current.right === null) return undefined;
+        current = current.right;
+      }
+    }
+    // if the value is not found, return undefined
+    return undefined;
+  }
 
   /** findRecursively(val): search the tree for a node with value val.
    * return the node, if found; else undefined. Uses recursion. */
